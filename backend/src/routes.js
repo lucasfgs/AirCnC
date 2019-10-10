@@ -10,7 +10,7 @@ const SpotController = require("./controllers/SpotController");
 const DashboardController = require("./controllers/DashboardController");
 const BookingController = require("./controllers/BookingController");
 
-routes.post("/users", SessionController.store);
+routes.post("/sessions", SessionController.store);
 
 routes.get("/spots", SpotController.index);
 routes.post("/spots", upload.single("thumbnail"), SpotController.store);
