@@ -7,10 +7,11 @@ import {
   FlatList,
   TouchableOpacity
 } from "react-native";
+import { withNavigation } from "react-navigation";
 
 import api from "../services/api";
 
-export default function SpotList({ tech }) {
+function SpotList({ tech, navigation }) {
   const imagePath = "http://192.168.1.2:5000/files/";
 
   const [spots, setSpots] = useState([]);
@@ -24,6 +25,10 @@ export default function SpotList({ tech }) {
     }
     loadSpots();
   }, []);
+
+  function handleNavigate(id) {
+    navigation.navigate("Book", { id });
+  }
 
   return (
     <View style={styles.container}>
@@ -47,7 +52,10 @@ export default function SpotList({ tech }) {
             <Text style={styles.price}>
               {item.price ? `R$${item.price}` : "GRATUITO"}
             </Text>
-            <TouchableOpacity style={styles.button} onPress={() => {}}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handleNavigate(item._id)}
+            >
               <Text style={styles.buttonText}>Solicitar Reserva</Text>
             </TouchableOpacity>
           </View>
@@ -113,3 +121,5 @@ const styles = StyleSheet.create({
     fontSize: 15
   }
 });
+
+export default withNavigation(SpotList);
